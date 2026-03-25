@@ -1,0 +1,4 @@
+GPU_Cleanup_Log.txt
+*.log
+.history/
+desktop.ini
