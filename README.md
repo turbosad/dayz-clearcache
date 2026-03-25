@@ -1,4 +1,4 @@
-# GPU Cache Cleaner
+# DayZ & GPU Cache Cleaner
 
 > [!WARNING]
 > **DISCLAIMER:** This script is **NOT** an official tool provided by Bohemia Interactive, AMD, NVIDIA, Microsoft, or any other organization. This is a community-created utility provided "as-is." 
@@ -8,6 +8,7 @@
 ---
 
 ## 🚀 Features
+- **DayZ Optimization:** Purges massive `.RPT` logs, script logs, and crash dumps (`.mdmp`, `.bidmp`) that can hoard 20GB+ of space.
 - **UAC Self-Elevation:** Automatically requests Administrator privileges to handle protected system folders.
 - **Service Management:** Safely stops and restarts NVIDIA Container services to unlock "in-use" shader files.
 - **Deep Clean:** Purges DirectX (D3D), OpenGL, NVIDIA/AMD caches, and Windows Temp/Prefetch folders.
@@ -19,8 +20,9 @@ This version provides visual feedback in a console window.
 1. Download `ClearGPU.ps1` and `ClearGPU.bat` and keep them in the same folder.
 2. Run **`ClearGPU.bat`**.
 3. Accept the UAC prompt.
-4. Review the console output to see which files were cleared and which were "In Use" (skipped).
-5. **Pro-Tip:** Press `Win + Ctrl + Shift + B` after the script finishes to manually refresh the Windows driver stack.
+4. Review the console output to see which files were cleared.
+5. **Note for DayZ Players:** This script wipes logs and temporary mission caches. It **will not** delete your keybinds, character saves, or graphic settings (stored in Documents).
+6. **Pro-Tip:** Press `Win + Ctrl + Shift + B` after the script finishes to manually refresh the Windows driver stack.
 
 ---
 
