@@ -4,8 +4,8 @@ if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     exit
 }
 
-# 2. Setup Logging
-$LogPath = "$env:USERPROFILE\Desktop\GPU_Cleanup_Log.txt"
+# 2. Setup Logging (Saves to the script's current folder)
+$LogPath = Join-Path -Path $PSScriptRoot -ChildPath "GPU_Cleanup_Log.txt"
 "--- DayZ & GPU Silent Cleanup Started: $(Get-Date) ---" | Out-File -FilePath $LogPath
 
 function Write-Step ($Message) {
@@ -26,14 +26,14 @@ $Paths = @(
     "$env:LocalAppData\DayZ",
     "$env:LocalAppData\DayZ Exp",
     
-    # Windows System Temp
+    # Windows System Temp & Prefetch
     "$env:TEMP",
     "C:\Windows\Temp",
     "C:\Windows\Prefetch"
 )
 
 try {
-    # 4. Handle NVIDIA Services (Unlocks shader files)
+    # 4. Handle NVIDIA Services
     $nv = Get-Service "NVDisplay.ContainerLocalSystem" -ErrorAction SilentlyContinue
     if ($nv -and $nv.Status -eq 'Running') { 
         Write-Step "Stopping NVIDIA Container Service..."

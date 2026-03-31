@@ -4,8 +4,8 @@ if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     exit
 }
 
-# 2. Setup Logging
-$LogPath = "$env:USERPROFILE\Desktop\GPU_Cleanup_Log.txt"
+# 2. Setup Logging (Saves to the script's current folder)
+$LogPath = Join-Path -Path $PSScriptRoot -ChildPath "GPU_Cleanup_Log.txt"
 "--- DayZ & GPU Cleanup Started: $(Get-Date) ---" | Out-File -FilePath $LogPath
 
 function Write-Step ($Message, $Color = "White") {
@@ -27,7 +27,7 @@ $Paths = @(
     "$env:LocalAppData\DayZ",
     "$env:LocalAppData\DayZ Exp",
     
-    # Windows System Temp
+    # Windows System Temp & Prefetch
     "$env:TEMP",
     "C:\Windows\Temp",
     "C:\Windows\Prefetch"
@@ -46,15 +46,11 @@ try {
         if (Test-Path $P) {
             Write-Step "Cleaning: $P" "Cyan"
             try {
-                # Get all items inside and delete them
                 Get-ChildItem -Path $P -Recurse -ErrorAction SilentlyContinue | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
                 Write-Step "  -> Success." "Green"
             } catch {
-                # This catches files currently locked by the OS or other apps
                 Write-Step "  -> Some files in use (Skipped)." "Gray"
             }
-        } else {
-            Write-Step "  -> Path not found (Skipping): $P" "DarkGray"
         }
     }
 
